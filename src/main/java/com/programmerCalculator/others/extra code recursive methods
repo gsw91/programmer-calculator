@@ -1,0 +1,149 @@
+Code of calculation algorithms - recursive methods
+
+
+BinarySystem.class
+
+    public String toHexadecimalRec(String binary) {
+            checkDigits(binary);
+            return decimal.toHexadecimalRec(toDecimalRec(binary));
+        }
+
+    public BigInteger toOctalRec(String binary) {
+        checkDigits(binary);
+        return decimal.toOctalRec(toDecimalRec(binary));
+    }
+
+    public BigInteger toDecimalRec(String binary) throws NumberFormatException {
+        checkDigits(binary);
+        return toDecimalRec(0, 0, BigInteger.ZERO, binary);
+    }
+
+    private BigInteger toDecimalRec(int pow, int var, BigInteger result, String binary) {
+        int length = binary.length();
+        String digit = binary.substring(length-1-var, length-var);
+        int digitInt = Integer.parseInt(digit);
+        result = result.add(BigInteger.valueOf(digitInt).multiply(TWO.pow(pow)));
+        pow++;
+        var++;
+        if(var!=length) {
+            result = toDecimalRec(pow, var, result, binary);
+        }
+        return result;
+    }
+
+DecimalSystem.class
+
+    public String toHexadecimalRec (BigInteger dec) {
+        return toHexadecimalRec(new StringBuilder(), dec);
+    }
+
+    private String toHexadecimalRec (StringBuilder hexScore, BigInteger dec) {
+        String modulo = String.valueOf(dec.mod(BigInteger.valueOf(16)));
+        hexScore = addNextChar(modulo, hexScore);
+        dec = dec.divide(SIXTEEN);
+        if (!dec.equals(BigInteger.ZERO)) {
+            toHexadecimalRec(hexScore, dec);
+        }
+        return hexScore.toString();
+    }
+
+    public BigInteger toOctalRec (BigInteger dec) {
+        return toOctalRec(dec, new StringBuilder());
+    }
+
+    private BigInteger toOctalRec (BigInteger dec, StringBuilder builder) {
+        int modulo = dec.mod(EIGHT).intValue();
+        dec = dec.divide(EIGHT);
+        builder.insert(0, modulo);
+        if (!dec.equals(BigInteger.ZERO)) {
+            toOctalRec(dec, builder);
+        }
+        return new BigInteger(builder.toString());
+    }
+
+    public String toBinaryRec (BigInteger dec) {
+        String number;
+        BigInteger modulo;
+        StringBuilder stringBuilder = new StringBuilder();
+        modulo = dec.mod(TWO);
+        stringBuilder.append(modulo);
+        if (modulo.equals(BigInteger.ONE)) {
+            dec = dec.subtract(BigInteger.ONE);
+            dec = dec.divide(TWO);
+        } else {
+            dec = dec.divide(TWO);
+        }
+        if(!dec.equals(BigInteger.ZERO)) {
+            stringBuilder.insert(0, toBinaryRec(dec));
+        }
+        number = stringBuilder.toString();
+        return number;
+    }
+
+HexadecimalSystem.class
+
+    public String toBinaryRec (String hex) {
+        checkDigits(hex);
+        return decimal.toBinaryRec(toDecimalRec(hex));
+    }
+
+    public BigInteger toOctalRec (String hex) {
+        checkDigits(hex);
+        return decimal.toOctalRec(toDecimalRec(hex));
+    }
+
+    public BigInteger toDecimalRec (String hex) {
+        checkDigits(hex);
+        return toDecimalRec(0, 0, BigInteger.ZERO, hex);
+    }
+
+    private BigInteger toDecimalRec (int pow, int digit, BigInteger sumZero, String hex) {
+        int arrayLength = hex.toCharArray().length;
+        int x=0;
+        char[] chars = new char[arrayLength];
+            for (int i=arrayLength-1; i>=0; i--) {
+                chars[x] = hex.toCharArray()[i];
+                x++;
+            }
+        char hexDigit = chars[digit];
+        sumZero = countNextChar(hexDigit, pow, sumZero);
+        pow++;
+        digit++;
+        if (digit < arrayLength) {
+            sumZero = toDecimalRec(pow, digit, sumZero, hex);
+        }
+        return sumZero;
+    }
+
+OctalSystem.class
+
+    public String toBinaryRec (BigInteger oct) {
+            checkDigit(oct);
+            return decimal.toBinaryRec(toDecimalRec(oct));
+    }
+
+    public String toHexadecimalRec (BigInteger oct) {
+        checkDigit(oct);
+        return decimal.toHexadecimalRec(toDecimalRec(oct));
+    }
+
+    public BigInteger toDecimalRec (BigInteger oct) {
+        checkDigit(oct);
+        return toDecimalRec(oct, BigInteger.ZERO, 0, 0);
+    }
+
+    private BigInteger toDecimalRec (BigInteger oct, BigInteger result, int pow, int var) {
+        String number = String.valueOf(oct);
+        int length = number.length();
+        if (var < length) {
+            char digit = number.charAt(length-var-1);
+            result = countDigits(digit, result, pow);
+            pow++;
+            var++;
+            if (var != length) {
+                result = toDecimalRec(oct, result, pow, var);
+            }
+        }
+        return result;
+    }
+

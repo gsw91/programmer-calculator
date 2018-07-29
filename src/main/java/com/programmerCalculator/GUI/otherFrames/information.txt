@@ -1,0 +1,15 @@
+Welcome in Programmer Calculator!
+
+First enter the number into the "Number to convert" field,
+then press:
+
+BIN - if you have entered the number of a binary system,
+        and you want to convert to Decimal Octal or Hexadecimal system.
+DEC - if you have entered the number of a decimal system.
+        and you want to convert to Binary Octal or Hexadecimal system.
+OCT - if you have entered the number of a octal system.
+        and you want to convert to Decimal Binary or Hexadecimal system.
+HEX - if you have entered the number of a hexadecimal system.
+        and you want to convert to Decimal Octal or Binary system.
+
+The results will be generated in other systems.

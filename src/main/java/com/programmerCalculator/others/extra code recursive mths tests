@@ -1,0 +1,401 @@
+Tests code of calculation algorithms - recursive methods tests
+
+
+BinarySystemTestSuite.class
+
+    @Test
+    public void testTransformRecursiveBinToHex() {
+        //given
+        BinarySystem binarySystem = new BinarySystem();
+        String actionOne = "0001";
+        String actionTwo = "1000";
+        String actionThree = "1111011100110001";
+        String actionFour = "1010101010101010";
+        String actionFive = "1000110011101111";
+
+        String resultOne = "1";
+        String resultTwo = "8";
+        String resultThree = "F731";
+        String resultFour = "AAAA";
+        String resultFive = "8CEF";
+        //when
+        String methodResultOne = binarySystem.toHexadecimalRec(actionOne);
+        String methodResultTwo = binarySystem.toHexadecimalRec(actionTwo);
+        String methodResultThree = binarySystem.toHexadecimalRec(actionThree);
+        String methodResultFour = binarySystem.toHexadecimalRec(actionFour);
+        String  methodResultFive = binarySystem.toHexadecimalRec(actionFive);
+        //then
+        Assert.assertEquals(resultOne, methodResultOne);
+        Assert.assertEquals(resultTwo, methodResultTwo);
+        Assert.assertEquals(resultThree, methodResultThree);
+        Assert.assertEquals(resultFour, methodResultFour);
+        Assert.assertEquals(resultFive, methodResultFive);
+    }
+
+    @Test
+    public void testTransformRecursiveBinToOct() {
+        //given
+        BinarySystem binarySystem = new BinarySystem();
+        String actionOne = "0001";
+        String actionTwo = "1000";
+        String actionThree = "1111011100110001";
+        String actionFour = "1010101010101010";
+        String actionFive = "1000110011101111";
+
+        BigInteger resultOne = BigInteger.ONE;
+        BigInteger resultTwo = BigInteger.valueOf(10);
+        BigInteger resultThree = BigInteger.valueOf(173461);
+        BigInteger resultFour = BigInteger.valueOf(125252);
+        BigInteger resultFive = BigInteger.valueOf(106357);
+        //when
+        BigInteger methodResultOne = binarySystem.toOctalRec(actionOne);
+        BigInteger methodResultTwo = binarySystem.toOctalRec(actionTwo);
+        BigInteger methodResultThree = binarySystem.toOctalRec(actionThree);
+        BigInteger methodResultFour = binarySystem.toOctalRec(actionFour);
+        BigInteger methodResultFive = binarySystem.toOctalRec(actionFive);
+        //then
+        Assert.assertEquals(resultOne, methodResultOne);
+        Assert.assertEquals(resultTwo, methodResultTwo);
+        Assert.assertEquals(resultThree, methodResultThree);
+        Assert.assertEquals(resultFour, methodResultFour);
+        Assert.assertEquals(resultFive, methodResultFive);
+    }
+
+    @Test
+    public void testFailRecursiveTransformBinToDec() {
+        //given
+        BinarySystem binarySystem = new BinarySystem();
+        String exception = "100100s";
+        //when&then
+        try {
+            binarySystem.toDecimalRec(exception);
+            fail("Expected a BinaryException to be thrown");
+        } catch (BinaryException e) {
+            Assert.assertThat(e.getMessage(), is("Binary number should contain only 1 or 0"));
+        }
+    }
+
+    @Test
+    public void testRecursiveTransformBinToDec() {
+        //given
+        BinarySystem binarySystem = new BinarySystem();
+        String actionOne = "0001";
+        String actionTwo = "1000";
+        String actionThree = "1111011100110001";
+        String actionFour = "1010101010101010";
+        String actionFive = "1000110011101111";
+
+        BigInteger resultOne = BigInteger.ONE;
+        BigInteger resultTwo = BigInteger.valueOf(8L);
+        BigInteger resultThree = BigInteger.valueOf(63281L);
+        BigInteger resultFour = BigInteger.valueOf(43690L);
+        BigInteger resultFive = BigInteger.valueOf(36079L);
+        //when
+        BigInteger methodResultOne = binarySystem.toDecimalRec(actionOne);
+        BigInteger methodResultTwo = binarySystem.toDecimalRec(actionTwo);
+        BigInteger methodResultThree = binarySystem.toDecimalRec(actionThree);
+        BigInteger methodResultFour = binarySystem.toDecimalRec(actionFour);
+        BigInteger methodResultFive = binarySystem.toDecimalRec(actionFive);
+        //then
+        Assert.assertEquals(resultOne, methodResultOne);
+        Assert.assertEquals(resultTwo, methodResultTwo);
+        Assert.assertEquals(resultThree, methodResultThree);
+        Assert.assertEquals(resultFour, methodResultFour);
+        Assert.assertEquals(resultFive, methodResultFive);
+    }
+
+DecimalSystemTestSuite.class
+
+    @Test
+    public void testRecursiveTransformDecToOct(){
+        //given
+        DecimalSystem decimalSystem = new DecimalSystem();
+        BigInteger actionOne = BigInteger.ZERO;
+        BigInteger actionTwo = BigInteger.ONE;
+        BigInteger actionThree = BigInteger.valueOf(8);
+        BigInteger actionFour = BigInteger.valueOf(970107);
+        BigInteger actionFive = BigInteger.valueOf(16434824);
+
+        BigInteger resultOne = BigInteger.ZERO;
+        BigInteger resultTwo = BigInteger.ONE;
+        BigInteger resultThree = BigInteger.TEN;
+        BigInteger resultFour = BigInteger.valueOf(3546573);
+        BigInteger resultFive = BigInteger.valueOf(76543210);
+        //when
+        BigInteger methodResultOne = decimalSystem.toOctalRec(actionOne);
+        BigInteger methodResultTwo = decimalSystem.toOctalRec(actionTwo);
+        BigInteger methodResultThree = decimalSystem.toOctalRec(actionThree);
+        BigInteger methodResultFour = decimalSystem.toOctalRec(actionFour);
+        BigInteger methodResultFive = decimalSystem.toOctalRec(actionFive);
+        //then
+        Assert.assertEquals(resultOne, methodResultOne);
+        Assert.assertEquals(resultTwo, methodResultTwo);
+        Assert.assertEquals(resultThree, methodResultThree);
+        Assert.assertEquals(resultFour, methodResultFour);
+        Assert.assertEquals(resultFive, methodResultFive);
+    }
+
+    @Test
+    public void testRecursiveTransformDecToHex() {
+        //Given
+        DecimalSystem decimalSystem = new DecimalSystem();
+        BigInteger actionOne = BigInteger.valueOf(0);
+        BigInteger actionTwo = BigInteger.ONE;
+        BigInteger actionThree = BigInteger.valueOf(123456789);
+        BigInteger actionFour = BigInteger.valueOf(16702650);
+        BigInteger actionFive = BigInteger.valueOf(987654321);
+
+        String resultOne = "0";
+        String resultTwo = "1";
+        String resultThree = "75BCD15";
+        String resultFour = "FEDCBA";
+        String resultFive = "3ADE68B1";
+        //When
+        String resultMethodOne = decimalSystem.toHexadecimalRec(actionOne);
+        String resultMethodTwo = decimalSystem.toHexadecimalRec(actionTwo);
+        String resultMethodThree = decimalSystem.toHexadecimalRec(actionThree);
+        String resultMethodFour = decimalSystem.toHexadecimalRec(actionFour);
+        String resultMethodFive = decimalSystem.toHexadecimalRec(actionFive);
+        //Then
+        Assert.assertEquals(resultOne, resultMethodOne);
+        Assert.assertEquals(resultTwo, resultMethodTwo);
+        Assert.assertEquals(resultThree, resultMethodThree);
+        Assert.assertEquals(resultFour, resultMethodFour);
+        Assert.assertEquals(resultFive, resultMethodFive);
+    }
+
+    @Test
+    public void testRecursiveTransformDecToBin() {
+        //given
+        DecimalSystem decimalSystem = new DecimalSystem();
+        BigInteger actionOne = BigInteger.valueOf(136);
+        BigInteger actionTwo = BigInteger.valueOf(1);
+        BigInteger actionThree = BigInteger.valueOf(1);
+        BigInteger actionFour = BigInteger.valueOf(0);
+        BigInteger actionFive = BigInteger.valueOf(13628843);
+
+        String resultOne = "10001000";
+        String resultTwo = "1";
+        String resultThree = "1";
+        String resultFour = "0";
+        String resultFive = "110011111111010110101011";
+        //when
+        String methodResultOne = decimalSystem.toBinaryRec(actionOne);
+        String methodResultTwo = decimalSystem.toBinaryRec(actionTwo);
+        String methodResultThree = decimalSystem.toBinaryRec(actionThree);
+        String methodResultFour = decimalSystem.toBinaryRec(actionFour);
+        String methodResultFive = decimalSystem.toBinaryRec(actionFive);
+        //then
+        Assert.assertEquals(resultOne, methodResultOne);
+        Assert.assertEquals(resultTwo, methodResultTwo);
+        Assert.assertEquals(resultThree, methodResultThree);
+        Assert.assertEquals(resultFour, methodResultFour);
+        Assert.assertEquals(resultFive, methodResultFive);
+    }
+
+HexadecimalSystemTestsSuite.class
+
+    @Test
+    public void testRecursiveTransformHexToBin() {
+        //given
+        HexadecimalSystem hexadecimalSystem = new HexadecimalSystem();
+        String actionOne = "0";
+        String actionTwo = "1";
+        String actionThree = "0123456789";
+        String actionFour = "FEDCBA";
+        String actionFive = "ABCDEF";
+
+        String resultOne = "0";
+        String resultTwo = "1";
+        String resultThree = "100100011010001010110011110001001";
+        String resultFour = "111111101101110010111010";
+        String resultFive = "101010111100110111101111";
+        //when
+        String resultMethodOne = hexadecimalSystem.toBinaryRec(actionOne);
+        String resultMethodTwo = hexadecimalSystem.toBinaryRec(actionTwo);
+        String resultMethodThree = hexadecimalSystem.toBinaryRec(actionThree);
+        String resultMethodFour = hexadecimalSystem.toBinaryRec(actionFour);
+        String resultMethodFive = hexadecimalSystem.toBinaryRec(actionFive);
+        //then
+        Assert.assertEquals(resultOne, resultMethodOne);
+        Assert.assertEquals(resultTwo, resultMethodTwo);
+        Assert.assertEquals(resultThree, resultMethodThree);
+        Assert.assertEquals(resultFour, resultMethodFour);
+        Assert.assertEquals(resultFive, resultMethodFive);
+    }
+
+    @Test
+    public void testRecursiveTransformHexToOct() {
+        //given
+        HexadecimalSystem hexadecimalSystem = new HexadecimalSystem();
+        String actionOne = "0";
+        String actionTwo = "1";
+        String actionThree = "0123456789";
+        String actionFour = "FEDCBA";
+        String actionFive = "ABCDEF";
+
+        BigInteger resultOne = BigInteger.ZERO;
+        BigInteger resultTwo = BigInteger.ONE;
+        BigInteger resultThree = new BigInteger("44321263611");
+        BigInteger resultFour = new BigInteger("77556272");
+        BigInteger resultFive = new BigInteger("52746757");
+        //when
+        BigInteger resultMethodOne = hexadecimalSystem.toOctalRec(actionOne);
+        BigInteger resultMethodTwo = hexadecimalSystem.toOctalRec(actionTwo);
+        BigInteger resultMethodThree = hexadecimalSystem.toOctalRec(actionThree);
+        BigInteger resultMethodFour = hexadecimalSystem.toOctalRec(actionFour);
+        BigInteger resultMethodFive = hexadecimalSystem.toOctalRec(actionFive);
+        //then
+        Assert.assertEquals(resultOne, resultMethodOne);
+        Assert.assertEquals(resultTwo, resultMethodTwo);
+        Assert.assertEquals(resultThree, resultMethodThree);
+        Assert.assertEquals(resultFour, resultMethodFour);
+        Assert.assertEquals(resultFive, resultMethodFive);
+    }
+
+    @Test
+    public void testFailRecursiveTransformHexToDec() {
+        //given
+        HexadecimalSystem hexadecimalSystem = new HexadecimalSystem();
+        String exception = "0241fgws";
+        //when&then
+        try {
+            hexadecimalSystem.toDecimalRec(exception);
+            fail("Expected a HexadecimalException to be thrown");
+        } catch (HexadecimalException e) {
+            Assert.assertThat(e.getMessage(),
+                    is("Hexadecimal number should contain values from 9 to 0 and letters from A to F"));
+        }
+    }
+
+    @Test
+    public void testRecursiveTransformHexToDec() {
+        //given
+        HexadecimalSystem hexadecimalSystem = new HexadecimalSystem();
+        String actionOne = "0";
+        String actionTwo = "1";
+        String actionThree = "0123456789";
+        String actionFour = "FEDCBA";
+        String actionFive = "ABCDEF";
+
+        BigInteger resultOne = BigInteger.ZERO;
+        BigInteger resultTwo = BigInteger.ONE;
+        BigInteger resultThree = BigInteger.valueOf(4886718345L);
+        BigInteger resultFour = BigInteger.valueOf(16702650L);
+        BigInteger resultFive = BigInteger.valueOf(11259375L);
+        //when
+        BigInteger resultMethodOne = hexadecimalSystem.toDecimalRec(actionOne);
+        BigInteger resultMethodTwo = hexadecimalSystem.toDecimalRec(actionTwo);
+        BigInteger resultMethodThree = hexadecimalSystem.toDecimalRec(actionThree);
+        BigInteger resultMethodFour = hexadecimalSystem.toDecimalRec(actionFour);
+        BigInteger resultMethodFive = hexadecimalSystem.toDecimalRec(actionFive);
+        //then
+        Assert.assertEquals(resultOne, resultMethodOne);
+        Assert.assertEquals(resultTwo, resultMethodTwo);
+        Assert.assertEquals(resultThree, resultMethodThree);
+        Assert.assertEquals(resultFour, resultMethodFour);
+        Assert.assertEquals(resultFive, resultMethodFive);
+    }
+
+OctalSystemTestsSuite.class
+
+    @Test
+    public void testRecursiveTransformOctToHex() {
+        //given
+        OctalSystem octalSystem = new OctalSystem();
+        BigInteger actionOne = BigInteger.ZERO;
+        BigInteger actionTwo = BigInteger.ONE;
+        BigInteger actionThree = BigInteger.TEN;
+        BigInteger actionFour = BigInteger.valueOf(3546573);
+        BigInteger actionFive = BigInteger.valueOf(76543210);
+
+        String resultOne = "0";
+        String resultTwo = "1";
+        String resultThree = "8";
+        String resultFour = "ECD7B";
+        String resultFive = "FAC688";
+        //when
+        String methodResultOne = octalSystem.toHexadecimalRec(actionOne);
+        String methodResultTwo = octalSystem.toHexadecimalRec(actionTwo);
+        String methodResultThree = octalSystem.toHexadecimalRec(actionThree);
+        String methodResultFour = octalSystem.toHexadecimalRec(actionFour);
+        String methodResultFive = octalSystem.toHexadecimalRec(actionFive);
+        //then
+        Assert.assertEquals(resultOne, methodResultOne);
+        Assert.assertEquals(resultTwo, methodResultTwo);
+        Assert.assertEquals(resultThree, methodResultThree);
+        Assert.assertEquals(resultFour, methodResultFour);
+        Assert.assertEquals(resultFive, methodResultFive);
+    }
+
+    @Test
+    public void testRecursiveTransformOctToBin() {
+        //given
+        OctalSystem octalSystem = new OctalSystem();
+        BigInteger actionOne = BigInteger.ZERO;
+        BigInteger actionTwo = BigInteger.ONE;
+        BigInteger actionThree = BigInteger.TEN;
+        BigInteger actionFour = BigInteger.valueOf(3546573);
+        BigInteger actionFive = BigInteger.valueOf(76543210);
+
+        String resultOne = "0";
+        String resultTwo = "1";
+        String resultThree = "1000";
+        String resultFour = "11101100110101111011";
+        String resultFive = "111110101100011010001000";
+        //when
+        String methodResultOne = octalSystem.toBinaryRec(actionOne);
+        String methodResultTwo = octalSystem.toBinaryRec(actionTwo);
+        String methodResultThree = octalSystem.toBinaryRec(actionThree);
+        String methodResultFour = octalSystem.toBinaryRec(actionFour);
+        String methodResultFive = octalSystem.toBinaryRec(actionFive);
+        //then
+        Assert.assertEquals(resultOne, methodResultOne);
+        Assert.assertEquals(resultTwo, methodResultTwo);
+        Assert.assertEquals(resultThree, methodResultThree);
+        Assert.assertEquals(resultFour, methodResultFour);
+        Assert.assertEquals(resultFive, methodResultFive);
+    }
+
+    @Test
+    public void testFailRecursiveTransformOctToDec() {
+        //given
+        OctalSystem octalSystem = new OctalSystem();
+        BigInteger exception = BigInteger.valueOf(1289);
+        //when&then
+        try {
+            octalSystem.toDecimalRec(exception);
+            fail("Expected a OctalException to be thrown");
+        } catch (OctalException e) {
+            Assert.assertThat(e.getMessage(), is("Octal number should only contain values from 7 to 0"));
+        }
+    }
+
+    @Test
+    public void testRecursiveTransformOctToDec() {
+        //given
+        OctalSystem octalSystem = new OctalSystem();
+        BigInteger actionOne = BigInteger.ZERO;
+        BigInteger actionTwo = BigInteger.ONE;
+        BigInteger actionThree = BigInteger.TEN;
+        BigInteger actionFour = BigInteger.valueOf(3546573);
+        BigInteger actionFive = BigInteger.valueOf(76543210);
+
+        BigInteger resultOne = BigInteger.ZERO;
+        BigInteger resultTwo = BigInteger.ONE;
+        BigInteger resultThree = BigInteger.valueOf(8);
+        BigInteger resultFour = BigInteger.valueOf(970107);
+        BigInteger resultFive = BigInteger.valueOf(16434824);
+        //when
+        BigInteger methodResultOne = octalSystem.toDecimalRec(actionOne);
+        BigInteger methodResultTwo = octalSystem.toDecimalRec(actionTwo);
+        BigInteger methodResultThree = octalSystem.toDecimalRec(actionThree);
+        BigInteger methodResultFour = octalSystem.toDecimalRec(actionFour);
+        BigInteger methodResultFive = octalSystem.toDecimalRec(actionFive);
+        //then
+        Assert.assertEquals(resultOne, methodResultOne);
+        Assert.assertEquals(resultTwo, methodResultTwo);
+        Assert.assertEquals(resultThree, methodResultThree);
+        Assert.assertEquals(resultFour, methodResultFour);
+        Assert.assertEquals(resultFive, methodResultFive);
+    }
