@@ -31,10 +31,12 @@ public class InformationFrame extends JFrame {
 
     private void setInformation(JTextArea jTextArea) {
 
+        String absolutePath = new File("").getAbsolutePath();
+        String filePath = absolutePath + "\\src\\main\\resources\\information.txt";
+
         try {
             String textLine;
-            FileReader fr = new FileReader("D:\\Programowanie\\SimpleGui\\src\\main\\java\\com\\" +
-                    "ownAlgorithms\\programmerCalculator\\GUI\\otherFrames\\information.txt");
+            FileReader fr = new FileReader(filePath);
             BufferedReader reader = new BufferedReader(fr);
 
             while((textLine = reader.readLine()) != null) {
